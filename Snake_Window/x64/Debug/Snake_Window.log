@@ -1,0 +1,9 @@
+﻿  main.cpp
+  Snake.cpp
+  코드를 생성하고 있습니다...
+main.obj : error LNK2019: endwinmain 함수에서 참조되는 확인할 수 없는 외부 기호
+main.obj : error LNK2019: initscrmain 함수에서 참조되는 확인할 수 없는 외부 기호
+main.obj : error LNK2019: mvprintwmain 함수에서 참조되는 확인할 수 없는 외부 기호
+main.obj : error LNK2019: refreshmain 함수에서 참조되는 확인할 수 없는 외부 기호
+D:\C++2022_04분반\Snake_Window\\Library\pdcurses.lib : warning LNK4272: 'x86' 라이브러리 컴퓨터 종류가 'x64' 대상 컴퓨터 종류와 충돌합니다.
+D:\C++2022_04분반\Snake_Window\x64\Debug\Snake_Window.exe : fatal error LNK1120: 4개의 확인할 수 없는 외부 참조입니다.
