@@ -15,7 +15,7 @@ int main()
     board.Init();
     
     uint64 prevTick = ::GetTickCount64();
-    while(1)
+    while (true)
     {
         const uint64 currentTick = ::GetTickCount64();
         const uint64 deltaTick = currentTick - prevTick;
