@@ -8,14 +8,23 @@ class Snake;
 class Board
 {
 public:
+    Board();
+    Board(int size);
+    virtual ~Board();
+
     void Init();
 
     void Update(uint64 deltaTick, int ch);
 
     void Render();
 
-    ItemManager* _itemmanager;
-    Snake* _snake;
+    bool isSnakeDead();
+
+    void SetSnakeDie(); // testcode
+
+private:
+    ItemManager* _itemmanager = nullptr;
+    Snake* _snake = nullptr;
     vector<vector<int> > _board;
     int _size;
     uint64 _fps = 0;

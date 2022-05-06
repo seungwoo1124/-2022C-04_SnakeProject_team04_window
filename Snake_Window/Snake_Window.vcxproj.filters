@@ -30,6 +30,9 @@
     <ClCompile Include="pch.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="GameSceneManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h">
@@ -48,6 +51,9 @@
       <Filter>소스 파일</Filter>
     </ClInclude>
     <ClInclude Include="Snake.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSceneManager.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,7 +1,9 @@
 #include "pch.h"
 #include "Board.h"
+#include "GameSceneManager.h"
 
-Board board;
+Board board = Board();
+GameSceneManager scene = GameSceneManager();
 
 int main()
 {
@@ -13,6 +15,8 @@ int main()
     nodelay(stdscr, true); // no wait input
 
     board.Init();
+
+    scene.StartGameScene();
     
     uint64 prevTick = ::GetTickCount64();
     while (true)
@@ -23,8 +27,27 @@ int main()
         int ch = getch();
         if (ch == 'q') break;
 
+        if (ch == 'd') board.SetSnakeDie();
+
         board.Update(deltaTick, ch);
 
+        if (board.isSnakeDead())
+        {
+            if (scene.RestartGameScene(&board))
+            {
+                prevTick = GetTickCount64();
+                continue;
+            }
+            else
+            {
+                clear();
+                mvprintw(0, 0, "Game over");
+                mvprintw(1, 0, "Your Score : ");
+                refresh();
+                Sleep(CLOCKS_PER_SEC * 3);
+                break;
+            }
+        }
         board.Render();
     }
     endwin();

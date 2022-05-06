@@ -22,8 +22,8 @@ public:
 
     void RemoveItem(Pos pos); 
 
-    Board* _board;
-    Snake* _snake;
+    Board* _board = nullptr;
+    Snake* _snake = nullptr;
     vector<Item> _items;
-    long sumTick = 0; 
+    long _sumTick = 0; 
 };

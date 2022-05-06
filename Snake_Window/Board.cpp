@@ -3,6 +3,34 @@
 #include "ItemManager.h"
 #include "Snake.h"
 
+Board::Board()
+{
+    _itemmanager = new ItemManager();
+    _snake = new Snake();
+    _size = 21;
+    _fps = 0;
+    _sumTick = 0;
+    _sumframe = 0;
+    _quit = false;
+}
+
+Board::Board(int size)
+{
+    _itemmanager = new ItemManager();
+    _snake = new Snake();
+    _size = size;
+    _fps = 0;
+    _sumTick = 0;
+    _sumframe = 0;
+    _quit = false;
+}
+
+Board::~Board()
+{
+    delete _itemmanager;
+    delete _snake;
+}
+
 void Board::Init()
 {
     _size = 21;
@@ -63,4 +91,14 @@ void Board::Render()
     }
     mvprintw(_size, 0, "fps : %d", _fps);
     refresh();
+}
+
+bool Board::isSnakeDead()
+{
+    return _snake->IsDead();
+}
+
+void Board::SetSnakeDie() // testcode
+{
+    _snake->SetDie();
 }

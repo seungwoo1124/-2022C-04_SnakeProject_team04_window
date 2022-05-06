@@ -20,11 +20,16 @@ public:
 
     int Getdirection();
 
+    int GetSnakeSize() { return _snakesize; }
+
+    void SetDie() { _isDead = true; } // test code
+
+private:
     vector<Pos> _snake;
-    Board* _board;
-    ItemManger* _itemManager;
+    Board* _board = nullptr;
+    ItemManger* _itemManager = nullptr;
     int _snakesize;
-    long sumTick = 0;
+    long _sumTick = 0;
     bool _isDead = false;
     int _direction = DIR_RIGHT;
 };

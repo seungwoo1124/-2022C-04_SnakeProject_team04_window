@@ -5,6 +5,9 @@
 
 void ItemManager::Init(Board* board)
 {
+	_board = board;
+	_items.clear();
+	_sumTick = 0;
 }
 
 void ItemManager::Update(uint64 deltaTick, int ch)
