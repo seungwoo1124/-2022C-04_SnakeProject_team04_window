@@ -1,12 +1,14 @@
 #include "pch.h"
 #include "Board.h"
 #include "ItemManager.h"
+#include "GateManager.h"
 #include "Snake.h"
 
 Board::Board()
 {
     _itemmanager = new ItemManager();
     _snake = new Snake();
+    _gatemanager = new GateManager();
     _size = 21;
     _fps = 0;
     _sumTick = 0;
@@ -50,12 +52,14 @@ void Board::Init()
 
     _itemmanager->Init(this);
     _snake->Init(this);
+    _gatemanager->Init(this);
 }
 
 void Board::Update(uint64 deltaTick, int ch)
 {
     _itemmanager->Update(deltaTick, ch);
     _snake->Update(deltaTick, ch);
+    _gatemanager->Update(deltaTick);
 
     _sumTick += deltaTick;
     _sumframe++;
@@ -90,6 +94,12 @@ void Board::Render()
         }
     }
     mvprintw(_size, 0, "fps : %d", _fps);
+    vector<Pos> gate = _gatemanager->getGate();
+    if (_gatemanager->isGate())
+    {
+        mvprintw(_size + 1, 0, "gate1 y : %d, x : %d", gate[0].y, gate[1].x);
+        mvprintw(_size + 2, 0, "gate2 y : %d, x : %d", gate[1].y, gate[1].x);
+    }
     refresh();
 }
 

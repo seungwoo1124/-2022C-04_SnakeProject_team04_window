@@ -4,6 +4,7 @@ using namespace std;
 
 class ItemManager;
 class Snake;
+class GateManager;
 
 class Board
 {
@@ -16,6 +17,8 @@ public:
 
     void Update(uint64 deltaTick, int ch);
 
+    vector<vector<int>> getBoard() { return _board; };
+
     void Render();
 
     bool isSnakeDead();
@@ -24,6 +27,7 @@ public:
 
 private:
     ItemManager* _itemmanager = nullptr;
+    GateManager* _gatemanager = nullptr;
     Snake* _snake = nullptr;
     vector<vector<int> > _board;
     int _size;
