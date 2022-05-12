@@ -19,11 +19,14 @@ public:
 
     vector<vector<int>> getBoard() { return _board; };
 
+    void SetBoard(Pos pos, ObjectType type);
+
     void Render();
 
     bool isSnakeDead();
 
     void SetSnakeDie(); // testcode
+
 
 private:
     ItemManager* _itemmanager = nullptr;

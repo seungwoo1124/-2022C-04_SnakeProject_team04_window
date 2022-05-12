@@ -15,6 +15,11 @@ void GateManager::Update(uint64 deltaTick)
 	_sumTick += deltaTick;
 	if (_isgateCreate == false && _sumTick > 10 * CLOCKS_PER_SEC)
 		CreateGate();
+	if (_isgateCreate)
+	{
+		_board->SetBoard(_gate[0], ObjectType::GATE);
+		_board->SetBoard(_gate[1], ObjectType::GATE);
+	}
 }
 
 void GateManager::CreateGate()

@@ -59,8 +59,8 @@ void Board::Init()
 void Board::Update(uint64 deltaTick, int ch)
 {
     _itemmanager->Update(deltaTick, ch);
-    _snake->Update(deltaTick, ch);
     _gatemanager->Update(deltaTick);
+    _snake->Update(deltaTick, ch);
 
     _sumTick += deltaTick;
     _sumframe++;
@@ -70,6 +70,11 @@ void Board::Update(uint64 deltaTick, int ch)
         _fps = _sumframe;
         _sumframe = 0;
     }
+}
+
+void Board::SetBoard(Pos pos, ObjectType type)
+{
+    _board[pos.y][pos.x] = (int)type;
 }
 
 void Board::Render()
@@ -88,8 +93,18 @@ void Board::Render()
             case (int)ObjectType::WALL:
                 mvprintw(y, x, "W");
                 break;
-            case (int) ObjectType::IMMUNE_WALL:
+            case (int)ObjectType::IMMUNE_WALL:
                 mvprintw(y, x, "I");
+                break;
+
+            case (int)ObjectType::ITEM_GROW:
+                mvprintw(y, x, "G");
+                break;
+            case (int)ObjectType::ITEM_POISON:
+                mvprintw(y, x, "P");
+                break;
+            case (int)ObjectType::GATE:
+                mvprintw(y, x, "D"); // door
                 break;
             }
         }

@@ -22,6 +22,9 @@ public:
 
     void RemoveItem(Pos pos); 
 
+    void RemoveFirstItem();
+
+private:
     Board* _board = nullptr;
     Snake* _snake = nullptr;
     vector<Item> _items;
