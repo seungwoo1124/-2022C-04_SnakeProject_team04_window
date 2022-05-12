@@ -2,6 +2,8 @@
 #include "Snake.h"
 #include "Board.h"
 
+// seojeong
+
 void Snake::Init(Board* board)
 {
     _isDead = false;
