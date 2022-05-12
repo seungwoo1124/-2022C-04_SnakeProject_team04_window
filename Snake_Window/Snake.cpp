@@ -21,11 +21,13 @@ void Snake::Update(uint64 deltaTick, int ch)
 
 }
 
-bool Snake::IsCollision()
+// if nextpos != Empty --> YES!!!!!!!!!
+bool Snake::IsCollision(Pos nextpos)
 {
     return false;
 }
 
+// nextpos = currentpos + dp[direction]
 void Snake::GoNext()
 {
     
@@ -39,4 +41,14 @@ void Snake::SetDirection()
 int Snake::Getdirection()
 {
     return 0;
+}
+
+void Snake::Grow()
+{
+
+}
+
+void Snake::Shrink()
+{
+
 }

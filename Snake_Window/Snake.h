@@ -10,7 +10,7 @@ public:
 
     void Update(uint64 deltaTick, int ch);
 
-    bool IsCollision();
+    bool IsCollision(Pos nextpos);
 
     bool IsDead() {return _isDead;}
 
@@ -23,6 +23,10 @@ public:
     int GetSnakeSize() { return _snakesize; }
 
     void SetDie() { _isDead = true; } // test code
+
+    void Grow();
+
+    void Shrink();
 
 private:
     vector<Pos> _snake;
