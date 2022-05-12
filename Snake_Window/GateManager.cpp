@@ -42,7 +42,10 @@ void GateManager::CreateGate()
 	_isgateCreate = true;
 }
 
-void GateManager::getExit(Pos entrance)
+Pos GateManager::getExit(Pos entrance)
 {
-
+	Pos exitgate = _gate[0];
+	if (_gate[0] == entrance)
+		exitgate = _gate[1];
+	return exitgate;
 }
