@@ -15,7 +15,7 @@ public:
 
 	bool isGate() { return _isgateCreate; }
 
-	void getExit(Pos entrance);
+	Pos getExit(Pos entrance);
 
 private:
 	Board* _board = nullptr;
