@@ -31,6 +31,7 @@ Board::~Board()
 {
     delete _itemmanager;
     delete _snake;
+    delete _gatemanager;
 }
 
 void Board::Init()
