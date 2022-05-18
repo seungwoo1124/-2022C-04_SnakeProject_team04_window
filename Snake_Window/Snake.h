@@ -1,7 +1,8 @@
 #pragma once
 
 class Board;
-class ItemManger;
+class ItemManager;
+class GateManager;
 
 class Snake
 {
@@ -31,7 +32,8 @@ public:
 private:
     vector<Pos> _snake;
     Board* _board = nullptr;
-    ItemManger* _itemManager = nullptr;
+    ItemManager* _itemManager = nullptr;
+    GateManager* _gateManager = nullptr;
     int _snakesize;
     long _sumTick = 0;
     bool _isDead = false;

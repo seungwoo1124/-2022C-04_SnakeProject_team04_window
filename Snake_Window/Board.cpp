@@ -52,8 +52,8 @@ void Board::Init()
     _board[_size - 1][_size - 1] = 2;
 
     _itemmanager->Init(this);
-    _snake->Init(this);
     _gatemanager->Init(this);
+    _snake->Init(this);
 }
 
 void Board::Update(uint64 deltaTick, int ch)

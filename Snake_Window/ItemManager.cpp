@@ -8,7 +8,6 @@ void ItemManager::Init(Board* board)
 	_board = board;
 	_items.clear();
 	_sumTick = 0;
-    
 }
 
 // after 3second DropItem, if snake eat Item remove(pos), after 5second RemovefirstItem
@@ -33,15 +32,7 @@ void ItemManager::Update(uint64 deltaTick, int ch)
         }
     }
 
-    // πÏ¿Ã ∏‘¿∫ item ªË¡¶ 
-    for (int i = 0; i < _items.size(); i++) 
-    {
-        if (FindSnakeHead() == _items[i].pos) 
-        {   
-            _board->SetBoard(_items[i].pos, ObjectType::SNAKE_HEAD);
-            RemoveItem(_items[i].pos);
-        }
-    }
+
 
      //boardø° ∞ªΩ≈
     for (int i = 0; i < _items.size(); i++) { _board->SetBoard(_items[i].pos, _items[i].itemtype);  }
@@ -105,20 +96,3 @@ void ItemManager::RemoveFirstItem()
 	_items.erase(_items.begin());
 }
 
-Pos ItemManager::FindSnakeHead()
-{
-    vector<vector<int>> board = _board->getBoard();
-    Pos pos;
-    for (int y = 0; y < board.size(); y++)
-    {
-        for (int x = 0; x < board.size(); x++)
-        {
-            if (board[y][x] == (int)ObjectType::SNAKE_HEAD)
-            {
-                pos.y = y;
-                pos.x = x;
-            }
-        }
-    }
-    return pos;
-}
