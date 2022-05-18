@@ -32,8 +32,8 @@ void ItemManager::Update(uint64 deltaTick, int ch)
         }
     }
 
-
-
+    //test
+    
      //board¿¡ °»½Å
     for (int i = 0; i < _items.size(); i++) { _board->SetBoard(_items[i].pos, _items[i].itemtype);  }
 
