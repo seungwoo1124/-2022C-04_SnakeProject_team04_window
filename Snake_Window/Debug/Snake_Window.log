@@ -1,2 +1,20 @@
-﻿  main.cpp
-  Snake_Window.vcxproj -> C:\Users\seung\OneDrive\Desktop\-2022C-04_SnakeProject_team04_window\Debug\Snake_Window.exe
+﻿  pch.cpp
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\curses.h(160,1): warning C4005: 'MOUSE_MOVED': 매크로 재정의
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\wincontypes.h(103): message : 'MOUSE_MOVED'의 이전 정의를 참조하십시오.
+  Board.cpp
+  GameSceneManager.cpp
+  GateManager.cpp
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\GateManager.cpp(29,20): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\GateManager.cpp(31,21): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  ItemManager.cpp
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\ItemManager.cpp(16,17): warning C4244: '+=': 'uint64'에서 'long'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\ItemManager.cpp(26,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\ItemManager.cpp(38,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\ItemManager.cpp(53,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\ItemManager.cpp(55,27): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\ItemManager.cpp(67,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\ItemManager.cpp(88,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  Snake.cpp
+  main.cpp
+  코드를 생성하고 있습니다...
+  Snake_Window.vcxproj -> C:\C++2022\-2022C-04_SnakeProject_team04_window\Debug\Snake_Window.exe

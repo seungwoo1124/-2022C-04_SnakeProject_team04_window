@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <list>
 #include <time.h>
 #include <windows.h>
 #include <stdlib.h>

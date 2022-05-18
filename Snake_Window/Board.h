@@ -19,6 +19,10 @@ public:
 
     vector<vector<int>> getBoard() { return _board; };
 
+    ItemManager* getItemmanager() { return _itemmanager; }
+
+    GateManager* getGatemanager() { return _gatemanager; }
+
     void SetBoard(Pos pos, ObjectType type);
 
     void Render();
