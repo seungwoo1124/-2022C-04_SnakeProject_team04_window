@@ -25,8 +25,6 @@ public:
 
     void RemoveFirstItem();
 
-    Pos FindSnakeHead();
-
 private:
     Board* _board = nullptr;
     Snake* _snake = nullptr;
