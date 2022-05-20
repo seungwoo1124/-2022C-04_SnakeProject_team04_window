@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿  pch.cpp
 D:\C++2022_04분반\Snake_Window\Snake_Window\curses.h(160,1): warning C4005: 'MOUSE_MOVED': 매크로 재정의
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um\wincontypes.h(103): message : 'MOUSE_MOVED'의 이전 정의를 참조하십시오.
@@ -19,3 +20,11 @@ D:\C++2022_04분반\Snake_Window\Snake_Window\ItemManager.cpp(88,23): warning C4
   코드를 생성하고 있습니다...
   LINK : D:\C++2022_04분반\Snake_Window\Debug\Snake_Window.exe을(를) 찾을 수 없거나 마지막 증분 링크에 의해 빌드되지 않았습니다. 전체 링크를 수행하고 있습니다.
   Snake_Window.vcxproj -> D:\C++2022_04분반\Snake_Window\Debug\Snake_Window.exe
+=======
+﻿  ItemManager.cpp
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\ItemManager.cpp(36,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\ItemManager.cpp(47,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\ItemManager.cpp(49,27): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\ItemManager.cpp(82,23): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  Snake_Window.vcxproj -> C:\C++2022\-2022C-04_SnakeProject_team04_window\Debug\Snake_Window.exe
+>>>>>>> main

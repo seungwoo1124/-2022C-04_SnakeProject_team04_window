@@ -19,7 +19,7 @@ public:
 
     void Update(uint64 deltaTick, int ch);
 
-    void DropRandomItem(long dropTime); 
+    void DropRandomItem(uint64 dropTime);
 
     void RemoveItem(Pos pos); 
 
