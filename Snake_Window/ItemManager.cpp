@@ -23,10 +23,13 @@ void ItemManager::Update(uint64 deltaTick, int ch)
     }
 
     // 5초가 지난 item 삭제
-    if (_sumTick - _items[0].dropTime > 5 * CLOCKS_PER_SEC)
+    if (_items.size() > 0)
     {
-        _board->SetBoard(_items[0].pos, ObjectType::EMPTY);
-        RemoveFirstItem();
+        if (_sumTick - _items[0].dropTime > 5 * CLOCKS_PER_SEC)
+        {
+            _board->SetBoard(_items[0].pos, ObjectType::EMPTY);
+            RemoveFirstItem();
+        }
     }
     
      //board에 갱신
@@ -34,7 +37,7 @@ void ItemManager::Update(uint64 deltaTick, int ch)
 
 }
 
-void ItemManager::DropRandomItem(long dropTime) // add Item to vector _items
+void ItemManager::DropRandomItem(uint64 dropTime) // add Item to vector _items
 {   
     Item item;
     vector<vector<int>> board = _board->getBoard();
@@ -45,7 +48,7 @@ void ItemManager::DropRandomItem(long dropTime) // add Item to vector _items
     {
         for (int x = 0; x < board.size(); x++)
         {
-            if (board[y][x] != (int)ObjectType::SNAKE_HEAD || board[y][x] != (int)ObjectType::SNAKE_BODY)
+            if (board[y][x] == (int)ObjectType::EMPTY)
             {
                 Pos pos;
                 pos.y = y;
@@ -55,9 +58,8 @@ void ItemManager::DropRandomItem(long dropTime) // add Item to vector _items
         }
     }
     //item.pos를 notSnakePos중 하나 골라서 
-    int randIndex = rand() % 2;
+    int randIndex = rand() % notSnakePos.size();
     item.pos = notSnakePos[randIndex];
-    
 
     //_items에 추가하기
     int randNum = rand() % 2; //grow또는 poison이 50%의 확률로 _items에 삽입되도록.
