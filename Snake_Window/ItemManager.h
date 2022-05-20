@@ -8,7 +8,7 @@ class Snake;
 struct Item
 {
     Pos pos;
-    long dropTime = 0;
+    uint64 dropTime = 0;
     ObjectType itemtype = ObjectType::ITEM_GROW;
 };
 
@@ -29,6 +29,6 @@ private:
     Board* _board = nullptr;
     Snake* _snake = nullptr;
     vector<Item> _items;
-    long _lastDropTime = 0;
-    long _sumTick = 0; 
+    uint64 _lastDropTime = 0;
+    uint64 _sumTick = 0;
 };
