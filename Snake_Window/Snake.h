@@ -17,7 +17,7 @@ public:
 
     void GoNext();
 
-    void SetDirection();
+    void SetDirection(int ch);
 
     int Getdirection();
 
@@ -36,6 +36,7 @@ private:
     GateManager* _gateManager = nullptr;
     int _snakesize;
     long _sumTick = 0;
+    long _lastSumTick = 0;
     bool _isDead = false;
     int _direction = DIR_RIGHT;
 };

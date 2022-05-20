@@ -19,6 +19,8 @@ public:
 
     vector<vector<int>> getBoard() { return _board; };
 
+    int getBoardPos(Pos pos) { return _board[pos.y][pos.x]; };
+
     ItemManager* getItemmanager() { return _itemmanager; }
 
     GateManager* getGatemanager() { return _gatemanager; }
