@@ -17,7 +17,7 @@ public:
 
 	Pos getExit(Pos entrance);
 
-	int getExitDir(Pos exit);
+	int getExitDir(Pos exit, int dir);
 
 private:
 	Board* _board = nullptr;
