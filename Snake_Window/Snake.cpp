@@ -17,11 +17,11 @@ void Snake::Init(Board* board)
     _lastSumTick = 0;
     _direction = DIR_RIGHT;
     _snakesize = 3;
-    _snake = { { 1, 3 }, { 1, 2 }, { 1, 1 } };
+    _snake = vector<Pos>(3, {1, 1});
 
     for (int i = 0; i < _snakesize; i++)
     {
-        _snake[i] = { 1, _snakesize - 1 - i };
+        _snake[i] = { 1, _snakesize - i }; // 3, 2, 1 들어감.
     }
 }
 
@@ -54,20 +54,27 @@ void Snake::GoNext()
     Pos currentpos = _snake[0];
     Pos nextpos = currentpos + dp[_direction];
     int nexttile = _board->getBoardPos(nextpos);
+    
+    switch (nexttile)
+    {
+    case (int)ObjectType::WALL:
+        _isDead = true;
+        break;
+    }
 
     // 방향이 바뀌면 한 타임에 스네이크 한 칸씩 방향 전환이 이루어져야 함
     // 바로 앞 칸의 방향을 가져오고, snake head의 방향은 방향키 입력으로 설정하면 될 것 같음 <-- 어떻게?
-    for (int i = 0; i < _snakesize; i++)
+    /*for (int i = 0; i < _snakesize; i++)
     {
         _snake[i] = nextpos;
-    }
+    }*/
 }
 
 void Snake::SetDirection(int ch)
 {
     KEY_UP;
     if ((_direction == DIR_UP && ch == KEY_DOWN) || (_direction == DIR_DOWN && ch == KEY_UP) || 
-        (_direction ==DIR_LEFT && ch == KEY_RIGHT) || (_direction == DIR_RIGHT && ch == KEY_LEFT)) {
+        (_direction == DIR_LEFT && ch == KEY_RIGHT) || (_direction == DIR_RIGHT && ch == KEY_LEFT)) {
         SetDie();
     }
     // 키보드 입력대로 _direction 설정

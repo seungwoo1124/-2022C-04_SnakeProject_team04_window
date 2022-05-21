@@ -49,6 +49,14 @@ enum Dir
     DIR_COUNT = 4
 };
 
+enum Score
+{
+    SCORE_LENGTH = 0,
+    SCORE_GROW = 1,
+    SCORE_POISON = 2,
+    SCORE_GATE = 3,
+};
+
 enum class ObjectType
 {
     EMPTY = 0,

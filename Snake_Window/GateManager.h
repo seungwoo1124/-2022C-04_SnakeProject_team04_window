@@ -17,6 +17,8 @@ public:
 
 	Pos getExit(Pos entrance);
 
+	int getExitDir(Pos exit);
+
 private:
 	Board* _board = nullptr;
 	uint64 _sumTick = 0;

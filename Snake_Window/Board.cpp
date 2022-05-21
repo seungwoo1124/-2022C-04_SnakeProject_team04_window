@@ -4,27 +4,21 @@
 #include "GateManager.h"
 #include "Snake.h"
 
-Board::Board()
-{
-    _itemmanager = new ItemManager();
-    _snake = new Snake();
-    _gatemanager = new GateManager();
-    _size = 21;
-    _fps = 0;
-    _sumTick = 0;
-    _sumframe = 0;
-    _quit = false;
-}
 
 Board::Board(int size)
 {
     _itemmanager = new ItemManager();
     _snake = new Snake();
-    _size = size;
+    _gatemanager = new GateManager();
+    _rowSize = size;
+    _colSize = size;
     _fps = 0;
     _sumTick = 0;
     _sumframe = 0;
     _quit = false;
+    _score = vector<int>(4, 0);
+    _level = 1;
+    _isClear = false;
 }
 
 Board::~Board()
@@ -36,24 +30,17 @@ Board::~Board()
 
 void Board::Init()
 {
-    _size = 21;
-    _board = vector<vector<int>>(_size, vector<int>(_size, 0));
-    for (int y = 0; y < _size; y++)
+    switch (_level)
     {
-        for (int x = 0; x < _size; x++)
-        {
-            if (y == 0 || x == 0 || y == _size - 1 || x == _size - 1)
-                _board[y][x] = 1;
-        }
+    case (1):
+        CreateLevel1();
+        break;
     }
-    _board[0][0] = 2;
-    _board[0][_size - 1] = 2;
-    _board[_size - 1][0] = 2;
-    _board[_size - 1][_size - 1] = 2;
-
     _itemmanager->Init(this);
     _gatemanager->Init(this);
     _snake->Init(this);
+    _score = vector<int>(4, 0);
+    _isClear = false;
 }
 
 void Board::Update(uint64 deltaTick, int ch)
@@ -70,6 +57,28 @@ void Board::Update(uint64 deltaTick, int ch)
         _fps = _sumframe;
         _sumframe = 0;
     }
+
+    if (_score[SCORE_LENGTH] >= 10 && _score[SCORE_GROW] >= 5 &&
+        _score[SCORE_POISON] >= 2 && _score[SCORE_GATE] >= 1)
+        _isClear = true;
+}
+
+void Board::CreateLevel1()
+{
+    _colSize = _rowSize;
+    _board = vector<vector<int>>(_rowSize, vector<int>(_colSize, 0));
+    for (int y = 0; y < _rowSize; y++)
+    {
+        for (int x = 0; x < _colSize; x++)
+        {
+            if (y == 0 || x == 0 || y == _rowSize - 1 || x == _rowSize - 1)
+                _board[y][x] = 1;
+        }
+    }
+    _board[0][0] = 2;
+    _board[0][_colSize - 1] = 2;
+    _board[_rowSize - 1][0] = 2;
+    _board[_rowSize - 1][_colSize - 1] = 2;
 }
 
 void Board::SetBoard(Pos pos, ObjectType type)
@@ -79,10 +88,9 @@ void Board::SetBoard(Pos pos, ObjectType type)
 
 void Board::Render()
 {
-    clear();
-    for (int y = 0; y < _size; y++)
+    for (int y = 0; y < _rowSize; y++)
     {
-        for (int x = 0; x < _size; x++)
+        for (int x = 0; x < _rowSize; x++)
         {
             int tile = _board[y][x];
             switch (tile)
@@ -109,14 +117,14 @@ void Board::Render()
             }
         }
     }
-    mvprintw(_size, 0, "fps : %d", _fps);
+    mvprintw(_rowSize, 0, "fps : %d", _fps);
     vector<Pos> gate = _gatemanager->getGate();
+    // gate 위치 출력
     if (_gatemanager->isGate())
     {
-        mvprintw(_size + 1, 0, "gate1 y : %d, x : %d", gate[0].y, gate[1].x);
-        mvprintw(_size + 2, 0, "gate2 y : %d, x : %d", gate[1].y, gate[1].x);
+        mvprintw(_rowSize + 1, 0, "gate1 y : %d, x : %d", gate[0].y, gate[1].x);
+        mvprintw(_rowSize + 2, 0, "gate2 y : %d, x : %d", gate[1].y, gate[1].x);
     }
-    refresh();
 }
 
 bool Board::isSnakeDead()

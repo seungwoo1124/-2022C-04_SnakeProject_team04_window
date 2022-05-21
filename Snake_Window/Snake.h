@@ -35,8 +35,8 @@ private:
     ItemManager* _itemManager = nullptr;
     GateManager* _gateManager = nullptr;
     int _snakesize;
-    long _sumTick = 0;
-    long _lastSumTick = 0;
+    uint64 _sumTick = 0;
+    uint64 _lastSumTick = 0;
     bool _isDead = false;
     int _direction = DIR_RIGHT;
 };

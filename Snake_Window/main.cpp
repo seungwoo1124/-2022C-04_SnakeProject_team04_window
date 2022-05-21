@@ -3,7 +3,7 @@
 #include "GameSceneManager.h"
 
 Board board = Board();
-GameSceneManager scene = GameSceneManager();
+GameSceneManager scene = GameSceneManager(&board);
 
 int main()
 {
@@ -33,7 +33,7 @@ int main()
 
         if (board.isSnakeDead())
         {
-            if (scene.RestartGameScene(&board))
+            if (scene.RestartGameScene())
             {
                 prevTick = GetTickCount64();
                 continue;
@@ -48,7 +48,8 @@ int main()
                 break;
             }
         }
-        board.Render();
+        if (board.isClear() == false)
+            scene.Render();
     }
     endwin();
 }

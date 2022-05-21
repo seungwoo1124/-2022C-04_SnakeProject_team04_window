@@ -5,9 +5,13 @@ class Board;
 class GameSceneManager
 {
 public:
-	bool RestartGameScene(Board* board);
+	GameSceneManager(Board* board);
+	bool RestartGameScene();
 
 	void StartGameScene();
+
+	void Render();
+	void RenderScore();
 
 private:
 	Board* _board;

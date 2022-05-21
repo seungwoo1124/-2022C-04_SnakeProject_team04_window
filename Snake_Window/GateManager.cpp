@@ -54,3 +54,22 @@ Pos GateManager::getExit(Pos entrance)
 		exitgate = _gate[1];
 	return exitgate;
 }
+
+int GateManager::getExitDir(Pos exit)
+{
+	int ret = DIR_DOWN;
+	int x = exit.x;
+	int y = exit.y;
+	int boardSize = _board->getRowSize();
+
+	if (y == 0)
+		ret = DIR_DOWN;
+	else if (y == boardSize - 1)
+		ret = DIR_UP;
+	else if (x == 0)
+		ret = DIR_RIGHT;
+	else if (x == boardSize - 1)
+		ret = DIR_LEFT;
+
+	return ret;
+}
