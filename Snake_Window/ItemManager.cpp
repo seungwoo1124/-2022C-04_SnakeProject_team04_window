@@ -44,9 +44,9 @@ void ItemManager::DropRandomItem(uint64 dropTime) // add Item to vector _items
     vector<Pos> notSnakePos;
 
     // item이 snake의 몸통 혹은 머리에 떨어지는지 확인. 
-    for (int y = 0; y < board.size(); y++)
+    for (int y = 0; y < _board->getRowSize(); y++)
     {
-        for (int x = 0; x < board.size(); x++)
+        for (int x = 0; x < _board->getColSize(); x++)
         {
             if (board[y][x] == (int)ObjectType::EMPTY)
             {

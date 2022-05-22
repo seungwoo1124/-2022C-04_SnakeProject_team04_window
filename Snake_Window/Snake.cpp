@@ -54,6 +54,8 @@ void Snake::GoNext()
     Pos currentpos = _snake[0];
     Pos nextpos = currentpos + dp[_direction];
     int nexttile = _board->getBoardPos(nextpos);
+
+    // if gate
     
     switch (nexttile)
     {
@@ -64,10 +66,10 @@ void Snake::GoNext()
 
     // 방향이 바뀌면 한 타임에 스네이크 한 칸씩 방향 전환이 이루어져야 함
     // 바로 앞 칸의 방향을 가져오고, snake head의 방향은 방향키 입력으로 설정하면 될 것 같음 <-- 어떻게?
-    /*for (int i = 0; i < _snakesize; i++)
+    for (int i = 0; i < _snakesize; i++)
     {
         _snake[i] = nextpos;
-    }*/
+    }
 }
 
 void Snake::SetDirection(int ch)
@@ -106,23 +108,11 @@ int Snake::Getdirection()
 
 void Snake::Grow()
 {
+    Pos tail = _snake[_snakesize - 1];
+    _snake.push_back(tail);
+
     // _snakesize 1 증가
     _snakesize++;
-
-    // tail 방향에서 1 증가(방향이 좌우이면 x값 변화, 방향이 상하이면 y값 변화) _snake.push_back({ 1,0 });
-    // 1, 0은 변경 예정
-    if (_direction == DIR_UP) { // 위
-        _snake.push_back({ 1,0 });
-    }
-    else if (_direction == DIR_DOWN) { // 아래
-        _snake.push_back({ 1,0 });
-    }
-    else if (_direction == DIR_LEFT) { // 왼
-        _snake.push_back({ 1,0 });
-    }
-    else if (_direction == DIR_RIGHT) { // 오
-        _snake.push_back({ 1,0 });
-    }
 }
 
 void Snake::Shrink()
