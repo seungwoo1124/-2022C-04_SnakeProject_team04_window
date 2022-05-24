@@ -17,12 +17,9 @@ void Snake::Init(Board* board)
     _lastSumTick = 0;
     _direction = DIR_RIGHT;
     _snakesize = 3;
-    _snake = vector<Pos>(3, {1, 1});
-
-    for (int i = 0; i < _snakesize; i++)
-    {
-        _snake[i] = { 1, _snakesize - i }; // 3, 2, 1 들어감.
-    }
+    int startYpos = board->getRowSize() / 4;
+    int startXpos = 1;
+    _snake = vector<Pos>(3, { startYpos, startXpos });
 }
 
 void Snake::Update(uint64 deltaTick, int ch)
@@ -30,7 +27,7 @@ void Snake::Update(uint64 deltaTick, int ch)
     SetDirection(ch);
     // 0.5 초가 지나면 스네이크 이동 --> _direction 방향으로 (_direction이 머리방향과 반대로 이동시 실패) --> GoNext()
     _sumTick += deltaTick;
-    if (_sumTick - _lastSumTick > 0.5 * CLOCKS_PER_SEC) {
+    if (_sumTick - _lastSumTick > _interval * CLOCKS_PER_SEC) {
         _lastSumTick = _sumTick;
         GoNext();
         _board->UpdateSnakeLength();
@@ -40,7 +37,7 @@ void Snake::Update(uint64 deltaTick, int ch)
 // if nextpos != Empty --> YES!!!!!!!!!
 bool Snake::IsCollision(Pos nextpos)
 {
-    int tile = _board->getBoardPos(nextpos);
+    int tile = _board->getTileType(nextpos);
     if (tile != (int)ObjectType::EMPTY)
         return true;
     return false;
@@ -49,32 +46,31 @@ bool Snake::IsCollision(Pos nextpos)
 // nextpos = currentpos + dp[direction]
 void Snake::GoNext()
 {
-    Pos dp[4] = { Pos{-1,0}, Pos{1,0}, Pos{0,-1}, Pos{0,1} };
+    Pos dp[4] = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} };
     
     // 현재 위치는 snake의 첫번째
     Pos currentpos = _snake[0];
-    Pos lastpos = _snake[_snakesize - 1];
     Pos nextpos = currentpos + dp[_direction];
-    int nexttile = _board->getBoardPos(nextpos);
+    int nexttile = _board->getTileType(nextpos);
 
     // if gate
     
     if (nexttile == (int)ObjectType::GATE) {
         currentpos = _gateManager->getExit(nextpos);
-        _direction = _gateManager->getExitDir(nextpos, _direction);
+        _direction = _gateManager->getExitDir(currentpos, _direction);
         nextpos = currentpos + dp[_direction];
-        nexttile = _board->getBoardPos(nextpos);
+        nexttile = _board->getTileType(nextpos);
         _board->PlusGateScore();
     }
 
     switch (nexttile)
     {
     case (int)ObjectType::WALL:
-        _isDead = true;
+        SetDie();
         break;
 
     case (int)ObjectType::SNAKE_BODY:
-        _isDead = true;
+        SetDie();
         break;
 
     case (int)ObjectType::ITEM_GROW:
@@ -88,6 +84,7 @@ void Snake::GoNext()
         break;
     }
 
+    Pos lastpos = _snake[_snakesize - 1];
     _board->SetBoard(lastpos, ObjectType::EMPTY);
 
     for (int i = _snakesize - 1; i > 0; i--) {
@@ -99,6 +96,7 @@ void Snake::GoNext()
     {
         _board->SetBoard(snakePos, ObjectType::SNAKE_BODY);
     }
+    _board->SetBoard(_snake[0], ObjectType::SNAKE_HEAD);
 }
 
 void Snake::SetDirection(int ch)
@@ -150,6 +148,9 @@ void Snake::Shrink()
     _board->PlusPoisonScore();
     // _snakesize 1 감소
     _snakesize--;
+
+    // 남겨진 몸체 처리
+    _board->SetBoard(_snake.back(), ObjectType::EMPTY);
 
     // tail방향에서 1 감소
     _snake.pop_back();

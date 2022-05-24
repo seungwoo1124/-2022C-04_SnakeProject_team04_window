@@ -23,7 +23,8 @@ public:
 
     int GetSnakeSize() { return _snakesize; }
 
-    void SetDie() { _isDead = true; } // test code
+    void SetDie() { _isDead = true; }
+    void SetInterval(const double& interval) { _interval = interval; }
 
     void Grow();
 
@@ -39,4 +40,5 @@ private:
     uint64 _lastSumTick = 0;
     bool _isDead = false;
     int _direction = DIR_RIGHT;
+    double _interval = 0.275;
 };
