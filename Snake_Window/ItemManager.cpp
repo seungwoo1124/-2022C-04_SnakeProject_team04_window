@@ -8,6 +8,7 @@ void ItemManager::Init(Board* board)
 	_board = board;
 	_items.clear();
 	_sumTick = 0;
+    _lastDropTime = 0;
 }
 
 // after 3second DropItem, if snake eat Item remove(pos), after 5second RemovefirstItem
@@ -40,7 +41,7 @@ void ItemManager::Update(uint64 deltaTick, int ch)
 void ItemManager::DropRandomItem(uint64 dropTime) // add Item to vector _items
 {   
     Item item;
-    vector<vector<int>> board = _board->getBoard();
+    const vector<vector<int>>& board = _board->getBoard();
     vector<Pos> notSnakePos;
 
     // item이 snake의 몸통 혹은 머리에 떨어지는지 확인. 

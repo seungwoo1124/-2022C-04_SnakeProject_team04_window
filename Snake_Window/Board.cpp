@@ -35,6 +35,9 @@ void Board::Init()
     case (1):
         CreateLevel1();
         break;
+    case (2):
+        CreateLevel2();
+        break;
     }
     _itemmanager->Init(this);
     _gatemanager->Init(this);
@@ -63,24 +66,6 @@ void Board::Update(uint64 deltaTick, int ch)
         _isClear = true;
 }
 
-void Board::CreateLevel1()
-{
-    _colSize = _rowSize;
-    _board = vector<vector<int>>(_rowSize, vector<int>(_colSize, 0));
-    for (int y = 0; y < _rowSize; y++)
-    {
-        for (int x = 0; x < _colSize; x++)
-        {
-            if (y == 0 || x == 0 || y == _rowSize - 1 || x == _rowSize - 1)
-                _board[y][x] = 1;
-        }
-    }
-    _board[0][0] = 2;
-    _board[0][_colSize - 1] = 2;
-    _board[_rowSize - 1][0] = 2;
-    _board[_rowSize - 1][_colSize - 1] = 2;
-}
-
 void Board::SetBoard(Pos pos, ObjectType type)
 {
     _board[pos.y][pos.x] = (int)type;
@@ -103,6 +88,10 @@ void Board::Render()
                 break;
             case (int)ObjectType::IMMUNE_WALL:
                 mvprintw(y, x, "I");
+                break;
+
+            case (int)ObjectType::SNAKE_BODY:
+                mvprintw(y, x, "S");
                 break;
 
             case (int)ObjectType::ITEM_GROW:
@@ -132,7 +121,77 @@ bool Board::isSnakeDead()
     return _snake->IsDead();
 }
 
-void Board::SetSnakeDie() // testcode
+void Board::UpdateSnakeLength()
 {
-    _snake->SetDie();
+    _score[SCORE_LENGTH] = _snake->GetSnakeSize();
 }
+
+void Board::CreateLevel1()
+{
+    _colSize = _rowSize;
+    _board = vector<vector<int>>(_rowSize, vector<int>(_colSize, 0));
+    for (int y = 0; y < _rowSize; y++)
+    {
+        for (int x = 0; x < _colSize; x++)
+        {
+            if (y == 0 || x == 0 || y == _rowSize - 1 || x == _rowSize - 1)
+                _board[y][x] = 1;
+        }
+    }
+    _board[0][0] = 2;
+    _board[0][_colSize - 1] = 2;
+    _board[_rowSize - 1][0] = 2;
+    _board[_rowSize - 1][_colSize - 1] = 2;
+}
+void Board::CreateLevel2()
+{
+    _colSize = 2 * _rowSize;
+    _board = vector<vector<int>>(_rowSize, vector<int>(_colSize, 0));
+    for (int y = 0; y < _rowSize; y++)
+    {
+        for (int x = 0; x < _colSize; x++)
+        {
+            if (y == 0 || x == 0 || y == _rowSize - 1 || x == _rowSize - 1)
+                _board[y][x] = 1;
+        }
+    }
+    _board[0][0] = 2;
+    _board[0][_colSize - 1] = 2;
+    _board[_rowSize - 1][0] = 2;
+    _board[_rowSize - 1][_colSize - 1] = 2;
+}
+void Board::CreateLevel3()
+{
+    _colSize = _rowSize;
+    _board = vector<vector<int>>(_rowSize, vector<int>(_colSize, 0));
+    for (int y = 0; y < _rowSize; y++)
+    {
+        for (int x = 0; x < _colSize; x++)
+        {
+            if (y == 0 || x == 0 || y == _rowSize - 1 || x == _rowSize - 1)
+                _board[y][x] = 1;
+        }
+    }
+    _board[0][0] = 2;
+    _board[0][_colSize - 1] = 2;
+    _board[_rowSize - 1][0] = 2;
+    _board[_rowSize - 1][_colSize - 1] = 2;
+}
+void Board::CreateLevel4()
+{
+    _colSize = 2 * _rowSize;
+    _board = vector<vector<int>>(_rowSize, vector<int>(_colSize, 0));
+    for (int y = 0; y < _rowSize; y++)
+    {
+        for (int x = 0; x < _colSize; x++)
+        {
+            if (y == 0 || x == 0 || y == _rowSize - 1 || x == _rowSize - 1)
+                _board[y][x] = 1;
+        }
+    }
+    _board[0][0] = 2;
+    _board[0][_colSize - 1] = 2;
+    _board[_rowSize - 1][0] = 2;
+    _board[_rowSize - 1][_colSize - 1] = 2;
+}
+

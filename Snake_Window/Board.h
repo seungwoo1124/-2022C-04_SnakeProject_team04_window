@@ -16,14 +16,12 @@ public:
 
     void Update(uint64 deltaTick, int ch);
 
-    vector<vector<int>> getBoard() { return _board; };
+    const vector<vector<int>>& getBoard() { return _board; };
 
     int getBoardPos(Pos pos) { return _board[pos.y][pos.x]; };
 
     ItemManager* getItemmanager() { return _itemmanager; }
     GateManager* getGatemanager() { return _gatemanager; }
-
-    void CreateLevel1();
 
     void SetBoard(Pos pos, ObjectType type);
 
@@ -31,13 +29,23 @@ public:
 
     bool isSnakeDead();
 
-    void SetSnakeDie(); // testcode
-
     int getRowSize() { return _rowSize; }
     int getColSize() { return _colSize; }
     bool isClear() { return _isClear; }
+    int getLevel() { return _level; }
+    void goNextLevel() { _level++; }
 
     const vector<int>& getScore() { return _score; }
+
+    void PlusGrowScore() { _score[SCORE_GROW]++; }
+    void PlusPoisonScore() { _score[SCORE_POISON]++; }
+    void PlusGateScore() { _score[SCORE_GATE]++; }
+    void UpdateSnakeLength();
+
+    void CreateLevel1();
+    void CreateLevel2();
+    void CreateLevel3();
+    void CreateLevel4();
 
 private:
     ItemManager* _itemmanager = nullptr;
