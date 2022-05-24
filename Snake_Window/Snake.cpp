@@ -33,6 +33,7 @@ void Snake::Update(uint64 deltaTick, int ch)
     if (_sumTick - _lastSumTick > 0.5 * CLOCKS_PER_SEC) {
         _lastSumTick = _sumTick;
         GoNext();
+        _board->UpdateSnakeLength();
     }
 }
 
@@ -52,23 +53,51 @@ void Snake::GoNext()
     
     // 현재 위치는 snake의 첫번째
     Pos currentpos = _snake[0];
+    Pos lastpos = _snake[_snakesize - 1];
     Pos nextpos = currentpos + dp[_direction];
     int nexttile = _board->getBoardPos(nextpos);
 
     // if gate
     
+    if (nexttile == (int)ObjectType::GATE) {
+        currentpos = _gateManager->getExit(nextpos);
+        _direction = _gateManager->getExitDir(nextpos, _direction);
+        nextpos = currentpos + dp[_direction];
+        nexttile = _board->getBoardPos(nextpos);
+        _board->PlusGateScore();
+    }
+
     switch (nexttile)
     {
     case (int)ObjectType::WALL:
         _isDead = true;
         break;
+
+    case (int)ObjectType::SNAKE_BODY:
+        _isDead = true;
+        break;
+
+    case (int)ObjectType::ITEM_GROW:
+        _itemManager->RemoveItem(nextpos);
+        Grow();
+        break;
+
+    case (int)ObjectType::ITEM_POISON:
+        _itemManager->RemoveItem(nextpos);
+        Shrink();
+        break;
     }
 
-    // 방향이 바뀌면 한 타임에 스네이크 한 칸씩 방향 전환이 이루어져야 함
-    // 바로 앞 칸의 방향을 가져오고, snake head의 방향은 방향키 입력으로 설정하면 될 것 같음 <-- 어떻게?
-    for (int i = 0; i < _snakesize; i++)
+    _board->SetBoard(lastpos, ObjectType::EMPTY);
+
+    for (int i = _snakesize - 1; i > 0; i--) {
+        _snake[i] = _snake[i - 1];
+    }
+    _snake[0] = nextpos;
+
+    for (Pos snakePos : _snake)
     {
-        _snake[i] = nextpos;
+        _board->SetBoard(snakePos, ObjectType::SNAKE_BODY);
     }
 }
 
@@ -110,6 +139,7 @@ void Snake::Grow()
 {
     Pos tail = _snake[_snakesize - 1];
     _snake.push_back(tail);
+    _board->PlusGrowScore();
 
     // _snakesize 1 증가
     _snakesize++;
@@ -117,6 +147,7 @@ void Snake::Grow()
 
 void Snake::Shrink()
 {
+    _board->PlusPoisonScore();
     // _snakesize 1 감소
     _snakesize--;
 

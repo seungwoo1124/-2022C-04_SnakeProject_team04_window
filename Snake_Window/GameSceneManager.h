@@ -13,6 +13,9 @@ public:
 	void Render();
 	void RenderScore();
 
+	void LevelClearScene();
+	void GameClearScene();
+
 private:
 	Board* _board;
 };

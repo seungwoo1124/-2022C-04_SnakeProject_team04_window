@@ -27,8 +27,6 @@ int main()
         int ch = getch();
         if (ch == 'q') break;
 
-        if (ch == 'd') board.SetSnakeDie();
-
         board.Update(deltaTick, ch);
 
         if (board.isSnakeDead())
@@ -50,6 +48,15 @@ int main()
         }
         if (board.isClear() == false)
             scene.Render();
+        else
+        {
+            if (board.getLevel() == 4)
+            {
+                scene.GameClearScene();
+                break;
+            }
+            scene.LevelClearScene();
+        }
     }
     endwin();
 }
