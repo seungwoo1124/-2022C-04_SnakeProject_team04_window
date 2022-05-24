@@ -11,6 +11,11 @@ bool GameSceneManager::RestartGameScene()
 {
 	nodelay(stdscr, false);
 	clear();
+	mvprintw(9, 0, "HaHa You Die!!");
+	mvprintw(10, 0, "Press Any Key...");
+	int p = getch();
+	refresh();
+	clear();
 	mvprintw(10, 0, "press 'r' button to restart and others finish game");
 	refresh();
 	int re = getch();
@@ -73,17 +78,17 @@ void GameSceneManager::LevelClearScene()
 	clear();
 	mvprintw(10, 0, "Level %d Clear!! go NextLevel After 3 second", level);
 	refresh();
-	Sleep(3 * CLOCKS_PER_SEC);
+	Sleep(CLOCKS_PER_SEC);
 
 	clear();
 	mvprintw(10, 0, "Level %d Clear!! go NextLevel After 2 second", level);
 	refresh();
-	Sleep(3 * CLOCKS_PER_SEC);
+	Sleep(CLOCKS_PER_SEC);
 
 	clear();
 	mvprintw(10, 0, "Level %d Clear!! go NextLevel After 1 second", level);
 	refresh();
-	Sleep(3 * CLOCKS_PER_SEC);
+	Sleep(CLOCKS_PER_SEC);
 
 	_board->goNextLevel();
 	_board->Init();
