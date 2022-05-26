@@ -19,7 +19,11 @@ public:
 
     vector<vector<int>> getBoard() { return _board; };
 
-    int getBoardPos(Pos pos) { return _board[pos.y][pos.x]; };
+    int getBoardPos(Pos pos) {
+        if (pos.y < _board.size() && pos.x < _board.size()) {
+            return _board[pos.y][pos.x];
+        }
+    }
 
     ItemManager* getItemmanager() { return _itemmanager; }
 
