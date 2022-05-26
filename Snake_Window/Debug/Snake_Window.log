@@ -1,4 +1,8 @@
 ﻿  Board.cpp
 C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\Board.h(22,19): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
 C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\Board.h(22,44): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  main.cpp
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\Board.h(22,19): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+C:\C++2022\-2022C-04_SnakeProject_team04_window\Snake_Window\Board.h(22,44): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+  코드를 생성하고 있습니다...
   Snake_Window.vcxproj -> C:\C++2022\-2022C-04_SnakeProject_team04_window\Debug\Snake_Window.exe

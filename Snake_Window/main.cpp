@@ -21,6 +21,7 @@ int main()
     curs_set(false); // don't show cursors
     keypad(stdscr, true); // can input by keyboard
     nodelay(stdscr, true); // no wait input
+
     start_color();
     init_pair(HEAD, COLOR_CYAN, COLOR_CYAN); 
     init_pair(BODY, COLOR_WHITE, COLOR_YELLOW); 
@@ -28,7 +29,7 @@ int main()
     init_pair(POISON, COLOR_WHITE, COLOR_RED); 
     init_pair(DOOR, COLOR_MAGENTA, COLOR_MAGENTA); 
     init_pair(WAL, COLOR_WHITE, COLOR_WHITE);
-    init_pair(IMMUNEWAL, COLOR_BLACK, COLOR_BLACK);
+    init_pair(IMMUNEWAL, COLOR_BLUE, COLOR_BLUE);
 
 
     board.Init();
