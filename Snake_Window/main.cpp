@@ -2,6 +2,14 @@
 #include "Board.h"
 #include "GameSceneManager.h"
 
+#define HEAD  1 
+#define BODY  2 
+#define GROW   3 
+#define POISON  4
+#define DOOR  5 
+#define WAL  6 
+#define IMMUNEWAL 7
+
 Board board = Board();
 GameSceneManager scene = GameSceneManager(&board);
 
@@ -13,6 +21,15 @@ int main()
     curs_set(false); // don't show cursors
     keypad(stdscr, true); // can input by keyboard
     nodelay(stdscr, true); // no wait input
+    start_color();
+    init_pair(HEAD, COLOR_CYAN, COLOR_CYAN); 
+    init_pair(BODY, COLOR_WHITE, COLOR_YELLOW); 
+    init_pair(GROW, COLOR_WHITE, COLOR_GREEN); 
+    init_pair(POISON, COLOR_WHITE, COLOR_RED); 
+    init_pair(DOOR, COLOR_MAGENTA, COLOR_MAGENTA); 
+    init_pair(WAL, COLOR_WHITE, COLOR_WHITE);
+    init_pair(IMMUNEWAL, COLOR_BLACK, COLOR_BLACK);
+
 
     board.Init();
 

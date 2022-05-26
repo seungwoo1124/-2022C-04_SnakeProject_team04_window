@@ -25,10 +25,10 @@ public:
 
     void RemoveFirstItem();
 
+    vector<Item> _items;
 private:
     Board* _board = nullptr;
     Snake* _snake = nullptr;
-    vector<Item> _items;
     uint64 _lastDropTime = 0;
     uint64 _sumTick = 0;
 };

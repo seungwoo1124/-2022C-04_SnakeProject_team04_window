@@ -18,15 +18,13 @@ public:
 
     const vector<vector<int>>& getBoard() { return _board; };
 
-<<<<<<< HEAD
     int getBoardPos(Pos pos) {
         if (pos.y < _board.size() && pos.x < _board.size()) {
             return _board[pos.y][pos.x];
         }
     }
-=======
+
     int getTileType(Pos pos) { return _board[pos.y][pos.x]; };
->>>>>>> 223947010def338270f4aad7118771c944a33c56
 
     ItemManager* getItemmanager() { return _itemmanager; }
     GateManager* getGatemanager() { return _gatemanager; }

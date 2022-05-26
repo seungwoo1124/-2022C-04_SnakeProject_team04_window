@@ -3,7 +3,15 @@
 #include "ItemManager.h"
 #include "GateManager.h"
 #include "Snake.h"
+#include<string>
 
+#define HEAD  1
+#define BODY  2
+#define GROW   3
+#define POISON  4
+#define DOOR  5
+#define WAL 6
+#define IMMUNEWAL 7
 
 Board::Board(int size)
 {
@@ -93,27 +101,42 @@ void Board::Render()
                 mvprintw(y, x, " ");
                 break;
             case (int)ObjectType::WALL:
+                attron(COLOR_PAIR(WAL));
                 mvprintw(y, x, "W");
+                attroff(COLOR_PAIR(WAL));
                 break;
             case (int)ObjectType::IMMUNE_WALL:
+                attron(COLOR_PAIR(IMMUNEWAL));
                 mvprintw(y, x, "I");
+                attroff(COLOR_PAIR(IMMUNEWAL));
                 break;
 
             case (int)ObjectType::SNAKE_BODY:
+                attron(COLOR_PAIR(BODY));
                 mvprintw(y, x, "S");
+                attroff(COLOR_PAIR(BODY));
                 break;
+
             case (int)ObjectType::SNAKE_HEAD:
+                attron(COLOR_PAIR(HEAD));
                 mvprintw(y, x, "H");
+                attroff(COLOR_PAIR(HEAD));
                 break;
 
             case (int)ObjectType::ITEM_GROW:
+                attron(COLOR_PAIR(GROW));
                 mvprintw(y, x, "G");
+                attroff(COLOR_PAIR(GROW));
                 break;
             case (int)ObjectType::ITEM_POISON:
+                attron(COLOR_PAIR(POISON));
                 mvprintw(y, x, "P");
+                attroff(COLOR_PAIR(POISON));
                 break;
             case (int)ObjectType::GATE:
+                attron(COLOR_PAIR(DOOR));
                 mvprintw(y, x, "D"); // door
+                attroff(COLOR_PAIR(DOOR));
                 break;
             }
         }
