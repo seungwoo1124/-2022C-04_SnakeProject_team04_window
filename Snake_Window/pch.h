@@ -42,11 +42,19 @@ struct Pos
 enum Dir
 {
     DIR_UP = 0,
-    DIR_DOWN = 1,
-    DIR_LEFT = 2,
-    DIR_RIGHT = 3,
+    DIR_RIGHT = 1,
+    DIR_DOWN = 2,
+    DIR_LEFT = 3,
 
     DIR_COUNT = 4
+};
+
+enum Score
+{
+    SCORE_LENGTH = 0,
+    SCORE_GROW = 1,
+    SCORE_POISON = 2,
+    SCORE_GATE = 3,
 };
 
 enum class ObjectType

@@ -2,7 +2,11 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
+<<<<<<< HEAD
       <FullPath>C:\C++2022\-2022C-04_SnakeProject_team04_window\Debug\Snake_Window.exe</FullPath>
+=======
+      <FullPath>C:\Users\seung\OneDrive\Desktop\-2022C-04_SnakeProject_team04_window\Debug\Snake_Window.exe</FullPath>
+>>>>>>> 223947010def338270f4aad7118771c944a33c56
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

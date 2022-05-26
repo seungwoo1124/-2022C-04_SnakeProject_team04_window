@@ -17,12 +17,9 @@ void Snake::Init(Board* board)
     _lastSumTick = 0;
     _direction = DIR_RIGHT;
     _snakesize = 3;
-    _snake = { { 1, 3 }, { 1, 2 }, { 1, 1 } };
-
-    for (int i = 0; i < _snakesize; i++)
-    {
-        _snake[i] = { 1, _snakesize - 1 - i };
-    }
+    int startYpos = board->getRowSize() / 4;
+    int startXpos = 1;
+    _snake = vector<Pos>(3, { startYpos, startXpos });
 }
 
 void Snake::Update(uint64 deltaTick, int ch)
@@ -30,16 +27,17 @@ void Snake::Update(uint64 deltaTick, int ch)
     SetDirection(ch);
     // 0.5 초가 지나면 스네이크 이동 --> _direction 방향으로 (_direction이 머리방향과 반대로 이동시 실패) --> GoNext()
     _sumTick += deltaTick;
-    if (_sumTick - _lastSumTick > 0.5 * CLOCKS_PER_SEC) {
+    if (_sumTick - _lastSumTick > _interval * CLOCKS_PER_SEC) {
         _lastSumTick = _sumTick;
         GoNext();
+        _board->UpdateSnakeLength();
     }
 }
 
 // if nextpos != Empty --> YES!!!!!!!!!
 bool Snake::IsCollision(Pos nextpos)
 {
-    int tile = _board->getBoardPos(nextpos);
+    int tile = _board->getTileType(nextpos);
     if (tile != (int)ObjectType::EMPTY)
         return true;
     return false;
@@ -48,26 +46,64 @@ bool Snake::IsCollision(Pos nextpos)
 // nextpos = currentpos + dp[direction]
 void Snake::GoNext()
 {
-    Pos dp[4] = { Pos{-1,0}, Pos{1,0}, Pos{0,-1}, Pos{0,1} };
+    Pos dp[4] = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} };
     
     // 현재 위치는 snake의 첫번째
     Pos currentpos = _snake[0];
     Pos nextpos = currentpos + dp[_direction];
-    int nexttile = _board->getBoardPos(nextpos);
+    int nexttile = _board->getTileType(nextpos);
 
-    // 방향이 바뀌면 한 타임에 스네이크 한 칸씩 방향 전환이 이루어져야 함
-    // 바로 앞 칸의 방향을 가져오고, snake head의 방향은 방향키 입력으로 설정하면 될 것 같음 <-- 어떻게?
-    for (int i = 0; i < _snakesize; i++)
-    {
-        _snake[i] = nextpos;
+    // if gate
+    
+    if (nexttile == (int)ObjectType::GATE) {
+        currentpos = _gateManager->getExit(nextpos);
+        _direction = _gateManager->getExitDir(currentpos, _direction);
+        nextpos = currentpos + dp[_direction];
+        nexttile = _board->getTileType(nextpos);
+        _board->PlusGateScore();
     }
+
+    switch (nexttile)
+    {
+    case (int)ObjectType::WALL:
+        SetDie();
+        break;
+
+    case (int)ObjectType::SNAKE_BODY:
+        SetDie();
+        break;
+
+    case (int)ObjectType::ITEM_GROW:
+        _itemManager->RemoveItem(nextpos);
+        Grow();
+        break;
+
+    case (int)ObjectType::ITEM_POISON:
+        _itemManager->RemoveItem(nextpos);
+        Shrink();
+        break;
+    }
+
+    Pos lastpos = _snake[_snakesize - 1];
+    _board->SetBoard(lastpos, ObjectType::EMPTY);
+
+    for (int i = _snakesize - 1; i > 0; i--) {
+        _snake[i] = _snake[i - 1];
+    }
+    _snake[0] = nextpos;
+
+    for (Pos snakePos : _snake)
+    {
+        _board->SetBoard(snakePos, ObjectType::SNAKE_BODY);
+    }
+    _board->SetBoard(_snake[0], ObjectType::SNAKE_HEAD);
 }
 
 void Snake::SetDirection(int ch)
 {
     KEY_UP;
     if ((_direction == DIR_UP && ch == KEY_DOWN) || (_direction == DIR_DOWN && ch == KEY_UP) || 
-        (_direction ==DIR_LEFT && ch == KEY_RIGHT) || (_direction == DIR_RIGHT && ch == KEY_LEFT)) {
+        (_direction == DIR_LEFT && ch == KEY_RIGHT) || (_direction == DIR_RIGHT && ch == KEY_LEFT)) {
         SetDie();
     }
     // 키보드 입력대로 _direction 설정
@@ -99,29 +135,22 @@ int Snake::Getdirection()
 
 void Snake::Grow()
 {
+    Pos tail = _snake[_snakesize - 1];
+    _snake.push_back(tail);
+    _board->PlusGrowScore();
+
     // _snakesize 1 증가
     _snakesize++;
-
-    // tail 방향에서 1 증가(방향이 좌우이면 x값 변화, 방향이 상하이면 y값 변화) _snake.push_back({ 1,0 });
-    // 1, 0은 변경 예정
-    if (_direction == DIR_UP) { // 위
-        _snake.push_back({ 1,0 });
-    }
-    else if (_direction == DIR_DOWN) { // 아래
-        _snake.push_back({ 1,0 });
-    }
-    else if (_direction == DIR_LEFT) { // 왼
-        _snake.push_back({ 1,0 });
-    }
-    else if (_direction == DIR_RIGHT) { // 오
-        _snake.push_back({ 1,0 });
-    }
 }
 
 void Snake::Shrink()
 {
+    _board->PlusPoisonScore();
     // _snakesize 1 감소
     _snakesize--;
+
+    // 남겨진 몸체 처리
+    _board->SetBoard(_snake.back(), ObjectType::EMPTY);
 
     // tail방향에서 1 감소
     _snake.pop_back();

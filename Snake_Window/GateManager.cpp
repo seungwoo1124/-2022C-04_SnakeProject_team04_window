@@ -24,11 +24,11 @@ void GateManager::Update(uint64 deltaTick)
 
 void GateManager::CreateGate()
 {
-	vector<vector<int>> board = _board->getBoard();
+	const vector<vector<int>>& board = _board->getBoard();
 	vector<Pos> walllist;
 	for (int y = 0; y < board.size(); y++)
 	{
-		for (int x = 0; x < board.size(); x++)
+		for (int x = 0; x < board[0].size(); x++)
 		{
 			if (board[y][x] == (int)ObjectType::WALL)
 			{
@@ -53,4 +53,33 @@ Pos GateManager::getExit(Pos entrance)
 	if (_gate[0] == entrance)
 		exitgate = _gate[1];
 	return exitgate;
+}
+
+int GateManager::getExitDir(Pos exit, int dir)
+{
+	Pos dp[4] = { {-1, 0}, {0, 1}, {1, 0}, {0, -1} };
+	int curDir = dir;
+	int x = exit.x;
+	int y = exit.y;
+	int rowSize = _board->getRowSize();
+	int colSize = _board->getColSize();
+
+	if (y == 0)
+		curDir = DIR_DOWN;
+	else if (y == rowSize - 1)
+		curDir = DIR_UP;
+	else if (x == 0)
+		curDir = DIR_RIGHT;
+	else if (x == colSize - 1)
+		curDir = DIR_LEFT;
+	else // not side
+	{
+		int nexttile = _board->getTileType(exit + dp[curDir]);
+		while (nexttile == (int)ObjectType::WALL)
+		{
+			curDir = (curDir + 1) % DIR_COUNT;
+		}
+	}
+
+	return curDir;
 }
