@@ -58,7 +58,6 @@ int main()
             {
                 clear();
                 mvprintw(0, 0, "Game over");
-                mvprintw(1, 0, "Your Score : ");
                 refresh();
                 Sleep(CLOCKS_PER_SEC * 3);
                 break;
